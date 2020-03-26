@@ -48,7 +48,7 @@ $ helm init
 
 # Deploy the Jenkins helm chart
 # (same command for install and upgrade)
-$ helm upgrade --install jenkins ./helm/jenkins-k8s
+$ helm upgrade --install jenkins ./charts/jenkins
 
 ```
 
@@ -74,7 +74,7 @@ $ helm upgrade --install jenkins \
         --set imagePullSecrets=docker-reg-secret \
         --set image.repository=${DOCKER_REG}/jenkins \
         --set image.tag='lts-k8s' \
-        ./helm/jenkins-k8s
+        ./charts/jenkins
 ```
 
 ## Data persistence
