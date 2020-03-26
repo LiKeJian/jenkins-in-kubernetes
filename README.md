@@ -42,6 +42,7 @@ Browse to http://localhost:8080 on your local browser
 ## Deploy Jenkins helm chart to Kubernetes
 
 If you are using the pre-built image, you can install the helm chart with
+
 ```
 $ helm init
 
@@ -53,6 +54,7 @@ $ helm upgrade --install jenkins ./helm/jenkins-k8s
 
 If you are building your own version of Jenkins, you need your Kubernetes cluster to be able to pull the Docker image. You have to create a Docker registry secret and reference to it in your helm install command.
 
+```
 # Create a Docker registry secret
 $ export DOCKER_REG=SET_YOUR_DOCKER_REGISTRY_HERE
 $ export DOCKER_USR=SET_YOUR_DOCKER_USERNAME_HERE
@@ -73,6 +75,7 @@ $ helm upgrade --install jenkins \
         --set image.repository=${DOCKER_REG}/jenkins \
         --set image.tag='lts-k8s' \
         ./helm/jenkins-k8s
+```
 
 ## Data persistence
 By default, in Kubernetes, the Jenkins deployment uses a persistent volume claim that is mounted to /var/jenkins_home. This assures your data is saved across crashes, restarts and upgrades.
