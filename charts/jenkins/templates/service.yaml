@@ -14,6 +14,9 @@ spec:
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
       name: http
+    - port: {{ .Values.service.agentPort }}
+      targetPort: {{ .Values.service.agentPort }}
+      name: agent
   selector:
     app: {{ template "jenkins-chart.name" . }}
     release: {{ .Release.Name }}

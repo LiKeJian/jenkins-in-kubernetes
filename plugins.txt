@@ -11,3 +11,4 @@ pipeline-model-api
 pipeline-stage-view
 kubernetes-cli
 kubernetes
+htmlpublisher
