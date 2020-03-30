@@ -13,31 +13,28 @@ spec:
       terminationGracePeriodSeconds: 10
       serviceAccountName: jenkins
       containers:
-      - name: jenkins
-        image: ccr.ccs.tencentyun.com/my-registry/jenkins:lts-k8s
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-          name: web
-          protocol: TCP
-        - containerPort: 50000
-          name: agent
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 1000m
-            memory: 1Gi
-          requests:
-            cpu: 500m
-            memory: 512Mi
-        volumeMounts:
-          - name: jenkins-home
-            mountPath: /var/jenkins_home
-          - name: docker-socket
-            mountPath: /var/run/docker.sock
-        env:
-          - name: JAVA_OPTS
-            value: -Djenkins.install.runSetupWizard=false -Duser.timezone=Asia/Shanghai
+        - name: jenkins
+          image: ccr.ccs.tencentyun.com/my-registry/jenkins:lts-k8s
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+            name: web
+            protocol: TCP
+          - containerPort: 50000
+            name: agent
+            protocol: TCP
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+            - name: gradle-home
+              mountPath: /root/.gradle
+            - name: tmp-home
+              mountPath: /tmp
+          env:
+            - name: JAVA_OPTS
+              value: -Djenkins.install.runSetupWizard=false -Duser.timezone=Asia/Shanghai
       securityContext:
         fsGroup: 1000
       volumes:
@@ -46,3 +43,9 @@ spec:
         - name: docker-socket
           hostPath:
             path: /var/run/docker.sock
+        - name: gradle-home
+          hostPath:
+            path: /opt/data/gradle
+        - name: tmp-home
+          hostPath:
+            path: /tmp
